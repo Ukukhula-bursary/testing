@@ -69,6 +69,7 @@
     <Build Include="Security\ukukhulaTebogo.sql" />
     <Build Include="Tables\Ethnicity.sql" />
     <Build Include="Tables\Gender.sql" />
+    <Build Include="Tables\UserRole.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
