@@ -80,6 +80,7 @@
     <Build Include="Tables\University.sql" />
     <Build Include="Tables\UniversityAllocation.sql" />
     <Build Include="Tables\UniversityApplication.sql" />
+    <Build Include="Tables\UniversityRepresentative.sql" />
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\UserRole.sql" />
   </ItemGroup>
