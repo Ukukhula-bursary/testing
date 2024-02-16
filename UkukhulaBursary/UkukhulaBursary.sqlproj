@@ -68,6 +68,7 @@
     <Build Include="Security\ukukhulaNdzalama.sql" />
     <Build Include="Security\ukukhulaTebogo.sql" />
     <Build Include="Tables\Contact.sql" />
+    <Build Include="Tables\Department.sql" />
     <Build Include="Tables\Ethnicity.sql" />
     <Build Include="Tables\Gender.sql" />
     <Build Include="Tables\UserRole.sql" />
