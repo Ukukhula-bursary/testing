@@ -73,6 +73,7 @@
     <Build Include="Tables\Ethnicity.sql" />
     <Build Include="Tables\Gender.sql" />
     <Build Include="Tables\University.sql" />
+    <Build Include="Tables\UniversityAllocation.sql" />
     <Build Include="Tables\UniversityApplication.sql" />
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\UserRole.sql" />
