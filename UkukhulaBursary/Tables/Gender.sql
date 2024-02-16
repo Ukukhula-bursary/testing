@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[Gender]
 (
   [ID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [Gender] VARCHAR(10) NOT NULL
+  [Identity] VARCHAR(10) NOT NULL
 );
 GO

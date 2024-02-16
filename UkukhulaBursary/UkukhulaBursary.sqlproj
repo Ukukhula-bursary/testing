@@ -67,8 +67,22 @@
     <Build Include="Security\db_owner for ukukhulaTebogo.sql" />
     <Build Include="Security\ukukhulaNdzalama.sql" />
     <Build Include="Security\ukukhulaTebogo.sql" />
+    <Build Include="Tables\BBDAdministrator.sql" />
+    <Build Include="Tables\BursaryDetails.sql" />
+    <Build Include="Tables\Contact.sql" />
+    <Build Include="Tables\Department.sql" />
     <Build Include="Tables\Ethnicity.sql" />
     <Build Include="Tables\Gender.sql" />
+    <Build Include="Tables\Student.sql" />
+    <Build Include="Tables\StudentAllocation.sql" />
+    <Build Include="Tables\StudentApplication.sql" />
+    <Build Include="Tables\StudentDocuments.sql" />
+    <Build Include="Tables\University.sql" />
+    <Build Include="Tables\UniversityAllocation.sql" />
+    <Build Include="Tables\UniversityApplication.sql" />
+    <Build Include="Tables\UniversityRepresentative.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\UserRole.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
