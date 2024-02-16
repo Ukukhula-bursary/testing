@@ -10,5 +10,5 @@ GO
 ALTER TABLE [dbo].[StudentAllocation]
   ADD CONSTRAINT [FK_StudentAllocationStudentID]
       FOREIGN KEY ([StudentID])
-      REFERENCES [dbo].[Student]([StudentID])
+      REFERENCES [dbo].[Student]
 GO
