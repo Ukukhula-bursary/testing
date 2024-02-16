@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[User]
 (
   [ID] INT IDENTITY(1,1) PRIMARY KEY NOT NULL ,
   [FirstName] VARCHAR(50) NOT NULL,
-  [LastName] VARCHAR(120) NOT NULL,
+  [LastName] VARCHAR(50) NOT NULL,
   [ContactID] INT NOT NULL,
   [UserRoleID] INT NOT NULL,
   [IsUserActive] BIT NOT NULL DEFAULT 1
