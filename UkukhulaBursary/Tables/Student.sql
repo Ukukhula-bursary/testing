@@ -19,7 +19,7 @@ ADD CONSTRAINT [FK_StudentGender] FOREIGN KEY ([GenderID]) REFERENCES [dbo].[Gen
 GO
 
 ALTER TABLE [dbo].[Student]
-ADD CONSTRAINT [FK_StudentEthnicity] FOREIGN KEY ([UniversityID]) REFERENCES [dbo].[Ethnicity]
+ADD CONSTRAINT [FK_StudentEthnicity] FOREIGN KEY ([EthnicityID]) REFERENCES [dbo].[Ethnicity]
 GO
 
 ALTER TABLE [dbo].[Student]
