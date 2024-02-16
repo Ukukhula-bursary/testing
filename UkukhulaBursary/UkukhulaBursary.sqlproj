@@ -67,6 +67,7 @@
     <Build Include="Security\db_owner for ukukhulaTebogo.sql" />
     <Build Include="Security\ukukhulaNdzalama.sql" />
     <Build Include="Security\ukukhulaTebogo.sql" />
+    <Build Include="Tables\BBDAdministrator.sql" />
     <Build Include="Tables\BursaryDetails.sql" />
     <Build Include="Tables\Contact.sql" />
     <Build Include="Tables\Department.sql" />
