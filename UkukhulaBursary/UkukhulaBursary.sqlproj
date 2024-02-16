@@ -72,6 +72,8 @@
     <Build Include="Tables\Department.sql" />
     <Build Include="Tables\Ethnicity.sql" />
     <Build Include="Tables\Gender.sql" />
+    <Build Include="Tables\University.sql" />
+    <Build Include="Tables\UniversityApplication.sql" />
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\UserRole.sql" />
   </ItemGroup>
