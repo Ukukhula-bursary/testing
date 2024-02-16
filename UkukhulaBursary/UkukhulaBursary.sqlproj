@@ -74,6 +74,7 @@
     <Build Include="Tables\Gender.sql" />
     <Build Include="Tables\Student.sql" />
     <Build Include="Tables\StudentApplication.sql" />
+    <Build Include="Tables\StudentDocuments.sql" />
     <Build Include="Tables\University.sql" />
     <Build Include="Tables\UniversityAllocation.sql" />
     <Build Include="Tables\UniversityApplication.sql" />
