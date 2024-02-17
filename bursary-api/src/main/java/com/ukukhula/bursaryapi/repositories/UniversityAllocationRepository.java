@@ -1,5 +1,7 @@
 package com.ukukhula.bursaryapi.repositories;
 
-public class UniversityAllocationRepository {
-    
+import com.ukukhula.bursaryapi.entities.UniversityAllocation;
+
+public interface UniversityAllocationRepository {
+    UniversityAllocation findById(int id);
 }
