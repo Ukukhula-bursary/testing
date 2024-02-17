@@ -24,18 +24,22 @@ public class UniversityRepoImpl implements UniversityRepository {
 
   @Override
   public Integer addUniversity(String name) {
-    KeyHolder keyHolder = new GeneratedKeyHolder();
+    try {
+      KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    jdbcTemplate.update(
-        connection -> {
-          PreparedStatement ps = connection.prepareStatement(INSERT_UNIVERSITY,
-              Statement.RETURN_GENERATED_KEYS);
-          ps.setString(1, name);
-          return ps;
-        },
-        keyHolder);
+      jdbcTemplate.update(
+          connection -> {
+            PreparedStatement ps = connection.prepareStatement(INSERT_UNIVERSITY,
+                Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
 
-    return (Integer) keyHolder.getKey();
+            return ps;
+          }, keyHolder);
+
+      return keyHolder.getKey().intValue();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
