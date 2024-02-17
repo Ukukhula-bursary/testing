@@ -10,7 +10,6 @@ public class StudentApplicationService {
 
     private final StudentApplicationRepository studentApplicationRepository;
 
-    @Autowired
     public StudentApplicationService(StudentApplicationRepository studentApplicationRepository) {
         this.studentApplicationRepository = studentApplicationRepository;
     }
