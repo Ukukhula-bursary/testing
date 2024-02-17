@@ -3,6 +3,9 @@ package com.ukukhula.bursaryapi.repositories;
 
 import com.ukukhula.bursaryapi.entities.University;
 import com.ukukhula.bursaryapi.entities.UniversityAllocation;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,6 +20,11 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
     public UniversityAllocation findById(int id) {
         return jdbcTemplate.queryForObject(SQL, UniversityAllocationRowMapper,
                 id);
+    }
+
+    @Override
+    public List<UniversityAllocation> getAllStudentAllocations() {
+        return jdbcTemplate.query("SELECT * FROM UniversityAllocation", UniversityAllocationRowMapper);
     }
 
     private final RowMapper<UniversityAllocation> UniversityAllocationRowMapper = ((resultSet,
