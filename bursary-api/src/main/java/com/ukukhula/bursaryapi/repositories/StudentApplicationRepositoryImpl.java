@@ -1,15 +1,12 @@
 package com.ukukhula.bursaryapi.repositories;
 
 import com.ukukhula.bursaryapi.entities.StudentApplication;
-import com.ukukhula.bursaryapi.entities.University;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public class StudentApplicationRepositoryImpl implements StudentApplicationRepository {
@@ -37,7 +34,6 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
         String sql = "SELECT * FROM StudentApplication WHERE StudentID = ?";
 
         StudentApplication students = jdbcTemplate.queryForObject(sql, studentRowMapper, studentID);
-
         return students;
     }
 }
