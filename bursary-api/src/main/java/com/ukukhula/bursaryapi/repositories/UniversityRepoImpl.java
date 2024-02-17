@@ -17,6 +17,7 @@ import org.springframework.jdbc.support.KeyHolder;
 public class UniversityRepoImpl implements UniversityRepository {
 
   private static final String INSERT_UNIVERSITY = "INSERT INTO University (Name) VALUES (?)";
+  private static final String GET_INIVERSITY_BY_ID = "EXEC [dbo].[uspGetUniversityById] ?";
 
   @Autowired
   JdbcTemplate jdbcTemplate;
@@ -37,4 +38,14 @@ public class UniversityRepoImpl implements UniversityRepository {
     return (Integer) keyHolder.getKey();
   }
 
+  @Override
+  public University getUniversityById(int id) {
+    return jdbcTemplate.queryForObject(GET_INIVERSITY_BY_ID, universityRowMapper,
+        id);
+  }
+
+  private final RowMapper<University> universityRowMapper = ((resultSet,
+      rowNumber) -> {
+    return new University(resultSet.getInt("ID"), resultSet.getString("Name"));
+  });
 }
