@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ukukhula.bursaryapi.assemblers.UniversityModelAssembler;
 import com.ukukhula.bursaryapi.entities.University;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +29,16 @@ public class UniversityController {
   UniversityController(UniversityModelAssembler assembler, UniversityService universityService) {
     this.assembler = assembler;
     this.universityService = universityService;
+  }
+
+  @GetMapping("/universities")
+  public CollectionModel<EntityModel<University>> all() {
+
+    List<EntityModel<University>> universities = universityService.getAllUniversities().stream()
+        .map(assembler::toModel)
+        .collect(Collectors.toList());
+
+    return CollectionModel.of(universities, linkTo(methodOn(UniversityController.class).all()).withSelfRel());
   }
 
   @PostMapping("/universities")
