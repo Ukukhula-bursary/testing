@@ -6,6 +6,8 @@ import com.ukukhula.bursaryapi.assemblers.UniversityModelAssembler;
 import com.ukukhula.bursaryapi.entities.University;
 
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.ukukhula.bursaryapi.services.UniversityService;
@@ -25,8 +27,11 @@ public class UniversityController {
   }
 
   @PostMapping("/universities")
-  University newUniversity(@RequestBody University newUniversity) {
-    return universityService.addUniversity(newUniversity.getName());
+  public ResponseEntity<?> newUniversity(@RequestBody University newUniversity) {
+    EntityModel<University> entityModel = assembler.toModel(universityService.addUniversity(newUniversity.getName()));
+
+    return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+        .body(entityModel);
   }
 
   @GetMapping("/universities/{id}")
