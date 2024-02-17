@@ -1,7 +1,6 @@
 package com.ukukhula.bursaryapi.assemblers;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -16,7 +15,8 @@ public class UniversityModelAssembler implements RepresentationModelAssembler<Un
   @Override
   public EntityModel<University> toModel(University university) {
     return EntityModel.of(university,
-        linkTo(methodOn(UniversityController.class).one(university.getId())).withSelfRel());
+        linkTo(methodOn(UniversityController.class).one(university.getId())).withSelfRel(),
+        linkTo(methodOn(UniversityController.class).all()).withRel("universities"));
   }
 
 }
