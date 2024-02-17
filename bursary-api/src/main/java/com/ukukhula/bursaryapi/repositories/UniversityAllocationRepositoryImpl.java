@@ -14,17 +14,6 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    // public UniversityAllocation findById(int id) {
-
-    // // Query Execution: jdbcTemplate.queryForObject() executes the SQL query.
-    // // parameters should go in order that the query expects them , like when
-    // using $
-    // // return jdbcTemplate.queryForObject(SQL,
-    // // new
-    // BeanPropertyRowMapper<UniversityAllocation>(UniversityAllocation.class), id);
-
-    // }
-
     public UniversityAllocation findById(int id) {
         return jdbcTemplate.queryForObject(SQL, UniversityAllocationRowMapper,
                 id);
