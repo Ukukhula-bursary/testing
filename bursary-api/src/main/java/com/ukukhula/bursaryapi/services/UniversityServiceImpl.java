@@ -14,6 +14,12 @@ public class UniversityServiceImpl implements UniversityService {
   UniversityRepository universityRepository;
 
   @Override
+  public University addUniversity(String name) {
+    Integer id = universityRepository.addUniversity(name);
+    return universityRepository.getUniversityById(id);
+  }
+
+  @Override
   public University getUniversityById(int id) {
     return universityRepository.getUniversityById(id);
   }
