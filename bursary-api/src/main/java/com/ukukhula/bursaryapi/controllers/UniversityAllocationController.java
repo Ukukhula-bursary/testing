@@ -14,6 +14,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,10 +32,9 @@ public class UniversityAllocationController {
         this.universityAllocationService = universityAllocationService;
     }
 
-    // Endpoint to retrieve a UniversityAllocation by its ID
     @GetMapping("/{id}")
     public EntityModel<UniversityAllocation> getUniversityAllocationById(@PathVariable int id) {
-        // Call service layer to find the UniversityAllocation by ID
+
         UniversityAllocation universityAllocation = universityAllocationService.findUniversityAllocationById(id);
 
         return universityAssembler.toModel(universityAllocation);
@@ -53,15 +53,15 @@ public class UniversityAllocationController {
         }
     }
 
- 
-    // @GetMapping("/")
-    // public CollectionModel<EntityModel<UniversityAllocation>>
-    // getAllUniversityAllocations() {
-    // // Call service layer to find the UniversityAllocation by ID
-    // <List<EntityModel<UniversityAllocation>> allAllocations =
-    // UniversityAllocationService.getAllAllocations().stream().map(universityAssembler::toModel).collect(Collectors.toList());
+    @PutMapping("/allocate-to-all")
+    public ResponseEntity<String> allocateFundsEvenlyToApproved() {
+        Integer updatedRows = universityAllocationService.allocateFundsToAllUniversities();
 
-    // return
-    // CollectionModel.of(allAllocations,linkTo(methodOn(UniversityAllocationController.class).getAllUniversityAllocations()).withSelfRel())
-    // }
+        if (updatedRows > 0) {
+            return ResponseEntity.ok("Funds allocated evenly to approved universities.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to allocate funds.");
+        }
+    }
+
 }

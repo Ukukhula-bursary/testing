@@ -19,7 +19,6 @@ public class UniversityAllocationService {
         this.universityAllocationRepository = universityAllocationRepository;
     }
 
-    // call to the repository to fetch UniversityAllocation by ID
     public UniversityAllocation findUniversityAllocationById(int id) {
         return universityAllocationRepository.findById(id);
     }
@@ -29,7 +28,10 @@ public class UniversityAllocationService {
     }
 
     public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
-        // Call the repository method to update the allocation amount for the university
         return universityAllocationRepository.allocateFundsToUniversity(id, amount);
+    }
+
+    public Integer allocateFundsToAllUniversities() {
+        return universityAllocationRepository.allocateFundsToAllUniversities();
     }
 }

@@ -11,4 +11,6 @@ public interface UniversityAllocationRepository {
     List<UniversityAllocation> getAllStudentAllocations();
 
     Integer allocateFundsToUniversity(int id, BigDecimal amount);
+    Integer allocateFundsToAllUniversities();
+  
 }

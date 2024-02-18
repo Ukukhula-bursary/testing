@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UniversityAllocationRepositoryImpl implements UniversityAllocationRepository {
-    final String SQL = "SELECT * FROM UniversityAllocation WHERE ID = ?"; // procedure
+    final String SQL = "SELECT * FROM UniversityAllocation WHERE ID = ?"; 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -33,6 +33,28 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
     public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
         String UPDATE_UNIVERSITY_ALLOCATION = "UPDATE UniversityAllocation SET Amount = ? WHERE ID = ?";
         return jdbcTemplate.update(UPDATE_UNIVERSITY_ALLOCATION, amount, id);
+    }
+
+    @Override
+    public Integer allocateFundsToAllUniversities() {
+        String COUNT_APPROVED_UNIVERSITIES = "SELECT COUNT(Status) FROM UniversityApplication WHERE Status = 'Approved'";
+        String SELECT_ADMIN_BALANCE = "SELECT TotalAmount FROM BursaryDetails WHERE Year = YEAR(GETDATE())";
+        String UPDATE_ALL_UNIVERSITY_ALLOCATIONS = "UPDATE UniversityAllocation " +
+                "SET Amount = ? " +
+                "WHERE UniversityID IN ( " +
+                "    SELECT ua.UniversityID " +
+                "    FROM UniversityApplication ua " +
+                "    WHERE ua.Status = 'Approved' " +
+                ")";
+
+        Integer numberOfApprovedUniversities = jdbcTemplate.queryForObject(COUNT_APPROVED_UNIVERSITIES, Integer.class);
+        BigDecimal availableBalance = jdbcTemplate.queryForObject(SELECT_ADMIN_BALANCE, BigDecimal.class);
+
+        BigDecimal amountPerUniversity = availableBalance.divide(BigDecimal.valueOf(numberOfApprovedUniversities), 4,
+                RoundingMode.HALF_UP);
+
+        return jdbcTemplate.update(UPDATE_ALL_UNIVERSITY_ALLOCATIONS, amountPerUniversity);
+
     }
 
     private final RowMapper<UniversityAllocation> UniversityAllocationRowMapper = ((resultSet,
