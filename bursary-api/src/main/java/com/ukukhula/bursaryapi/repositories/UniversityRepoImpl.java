@@ -8,7 +8,9 @@ import java.util.Objects;
 import org.springframework.stereotype.Repository;
 
 import com.ukukhula.bursaryapi.entities.University;
+import com.ukukhula.bursaryapi.exceptions.UniversityNotFoundException;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -21,8 +23,7 @@ public class UniversityRepoImpl implements UniversityRepository {
   private static final String GET_UNIVERSITY_BY_ID = "EXEC [dbo].[uspGetUniversityById] ?";
   private static final String GET_ALL_UNIVERSITIES = "SELECT * FROM University";
 
-  final
-  JdbcTemplate jdbcTemplate;
+  final JdbcTemplate jdbcTemplate;
 
   public UniversityRepoImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
@@ -50,13 +51,22 @@ public class UniversityRepoImpl implements UniversityRepository {
 
   @Override
   public University getUniversityById(int id) {
-    return jdbcTemplate.queryForObject(GET_UNIVERSITY_BY_ID, universityRowMapper,
-        id);
+    try {
+      return jdbcTemplate.queryForObject(GET_UNIVERSITY_BY_ID, universityRowMapper, id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new RuntimeException("University not found with ID: " + id, e);
+    } catch (Exception e) {
+      throw new RuntimeException("Error retrieving University with ID: " + id, e);
+    }
   }
 
   @Override
   public List<University> getAllUniversities() {
-    return jdbcTemplate.query(GET_ALL_UNIVERSITIES, universityRowMapper);
+    try {
+      return jdbcTemplate.query(GET_ALL_UNIVERSITIES, universityRowMapper);
+    } catch (Exception e) {
+      throw new RuntimeException("Error retrieving all universities", e);
+    }
   }
 
   private final RowMapper<University> universityRowMapper = ((resultSet,
