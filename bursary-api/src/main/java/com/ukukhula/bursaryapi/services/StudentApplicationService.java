@@ -1,5 +1,6 @@
 package com.ukukhula.bursaryapi.services;
 
+import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
 import com.ukukhula.bursaryapi.repositories.StudentApplicationRepository;
 import java.util.List;
@@ -20,5 +21,9 @@ public class StudentApplicationService {
 
     public List<StudentApplication> getAllStudentsApplications() {
         return studentApplicationRepository.getAllStudentsApplications();
+    }
+
+    public Integer updateStudentsApplicationStatus(int studentID, String status) {
+        return studentApplicationRepository.updateStudentsApplicationStatus(studentID, status);
     }
 }
