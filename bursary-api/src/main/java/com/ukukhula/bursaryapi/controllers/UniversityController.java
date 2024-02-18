@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 public class UniversityController {
 
-  private UniversityService universityService;
+  private final UniversityService universityService;
 
   private final UniversityModelAssembler assembler;
 
