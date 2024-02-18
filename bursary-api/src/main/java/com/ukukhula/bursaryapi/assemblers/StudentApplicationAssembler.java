@@ -29,6 +29,11 @@ public class StudentApplicationAssembler
                                                 .updateStudentsApplicationStatus(studentApplication.getStudentID(),
                                                                 Collections.singletonMap("status",
                                                                                 studentApplication.getStatus())))
-                                                .withRel("updatestudentapplications"));
+                                                .withRel("updatestudentapplications"),
+
+                                linkTo(methodOn(StudentApplicationController.class)
+                                                .updateStudentsApplicationColumnValue(studentApplication.getStudentID(),
+                                                                Collections.emptyMap()))
+                                                .withRel("updatestudentapplicationscolumns"));
         }
 }
