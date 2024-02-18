@@ -2,6 +2,7 @@ package com.ukukhula.bursaryapi.repositories;
 
 import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
+import com.ukukhula.bursaryapi.repositories.utilities.ColumnValueConverter;
 
 import java.util.List;
 
@@ -51,6 +52,19 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
         final String SQL = "UPDATE StudentApplication SET Status = ? WHERE StudentID = ?";
 
         return jdbcTemplate.update(SQL, status, studentID);
+    }
+
+    @Override
+    public Integer updateStudentsApplicationColumnValue(int studentID, String columnName, String value) {
+
+        // for later if we get time: data type validation
+        // Class<?> columnType = ColumnValueConverter.getColumnDataType(columnName);
+        // Object convertedValue = ColumnValueConverter.convertValueToType(value,
+        // columnType);
+
+        final String SQL = "UPDATE StudentApplication SET " + columnName + " = ? WHERE StudentID = ?";
+
+        return jdbcTemplate.update(SQL, value, studentID);
     }
 
 }
