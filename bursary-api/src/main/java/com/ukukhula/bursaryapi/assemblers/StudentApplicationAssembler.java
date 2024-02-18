@@ -2,10 +2,13 @@ package com.ukukhula.bursaryapi.assemblers;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import java.util.Collections;
+
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.controllers.StudentApplicationController;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
 
@@ -21,6 +24,11 @@ public class StudentApplicationAssembler
                                                 .withSelfRel(),
                                 linkTo(methodOn(StudentApplicationController.class)
                                                 .getAllStudentApplications())
-                                                .withRel("allstudentapplications"));
+                                                .withRel("allstudentapplications"),
+                                linkTo(methodOn(StudentApplicationController.class)
+                                                .updateStudentsApplicationStatus(studentApplication.getStudentID(),
+                                                                Collections.singletonMap("status",
+                                                                                studentApplication.getStatus())))
+                                                .withRel("updatestudentapplications"));
         }
 }
