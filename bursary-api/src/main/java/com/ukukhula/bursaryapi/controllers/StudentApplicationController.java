@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +53,7 @@ public class StudentApplicationController {
         String statusString = requestBody.get("status");
 
         try {
- 
+
             Integer rowsAffected = studentApplicationService.updateStudentsApplicationStatus(studentID, statusString);
 
             if (rowsAffected >= 1) {
@@ -61,6 +63,38 @@ public class StudentApplicationController {
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid status value");
+        }
+
+    }
+
+    @PutMapping("/student/updateColumn/{studentID}")
+    public ResponseEntity<?> updateStudentsApplicationColumnValue(@PathVariable int studentID,
+            @RequestBody Map<String, String> requestBody) {
+
+        String columNameString = new String();
+
+        for (String columName : requestBody.keySet()) {
+            columNameString = columName;
+        }
+
+        String valueString = requestBody.get(columNameString);
+
+        try {
+
+            if (columNameString == "Status") {
+                throw new Error("You have no authority to update Status's");
+            }
+
+            Integer rowsAffected = studentApplicationService.updateStudentsApplicationColumnValue(studentID,
+                    columNameString, valueString);
+
+            if (rowsAffected >= 1) {
+                return ResponseEntity.ok("Column update successful");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid update");
         }
 
     }
