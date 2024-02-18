@@ -8,8 +8,6 @@ import java.util.Objects;
 import org.springframework.stereotype.Repository;
 
 import com.ukukhula.bursaryapi.entities.University;
-import com.ukukhula.bursaryapi.exceptions.UniversityNotFoundException;
-
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
