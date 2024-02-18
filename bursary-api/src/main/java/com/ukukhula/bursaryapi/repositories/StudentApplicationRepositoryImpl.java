@@ -1,5 +1,6 @@
 package com.ukukhula.bursaryapi.repositories;
 
+import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
 
 import java.util.List;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public class StudentApplicationRepositoryImpl implements StudentApplicationRepository {
@@ -27,8 +27,7 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
                 resultSet.getBigDecimal("BursaryAmount"),
                 resultSet.getString("Status"),
                 resultSet.getString("RejectionReason"),
-                resultSet.getDate("Date")
-        );
+                resultSet.getDate("Date"));
     });
 
     @Override
@@ -38,7 +37,7 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
         StudentApplication students = jdbcTemplate.queryForObject(SQL, studentRowMapper, studentID);
         return students;
     }
-    
+
     @Override
     public List<StudentApplication> getAllStudentsApplications() {
         final String SQL = "SELECT * FROM StudentApplication";
@@ -46,5 +45,12 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
         List<StudentApplication> students = jdbcTemplate.query(SQL, studentRowMapper);
         return students;
     }
-    
+
+    @Override
+    public Integer updateStudentsApplicationStatus(int studentID, String status) {
+        final String SQL = "UPDATE StudentApplication SET Status = ? WHERE StudentID = ?";
+
+        return jdbcTemplate.update(SQL, status, studentID);
+    }
+
 }
