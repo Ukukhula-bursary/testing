@@ -2,6 +2,8 @@ package com.ukukhula.bursaryapi.repositories;
 
 import com.ukukhula.bursaryapi.entities.StudentApplication;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -31,9 +33,18 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
 
     @Override
     public StudentApplication findByStudentID(int studentID) {
-        String sql = "SELECT * FROM StudentApplication WHERE StudentID = ?";
+        String SQL = "SELECT * FROM StudentApplication WHERE StudentID = ?";
 
-        StudentApplication students = jdbcTemplate.queryForObject(sql, studentRowMapper, studentID);
+        StudentApplication students = jdbcTemplate.queryForObject(SQL, studentRowMapper, studentID);
         return students;
     }
+    
+    @Override
+    public List<StudentApplication> getAllStudentsApplications() {
+        final String SQL = "SELECT * FROM StudentApplication";
+
+        List<StudentApplication> students = jdbcTemplate.query(SQL, studentRowMapper);
+        return students;
+    }
+    
 }
