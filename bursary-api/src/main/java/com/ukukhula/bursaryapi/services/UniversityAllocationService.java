@@ -19,20 +19,17 @@ public class UniversityAllocationService {
         this.universityAllocationRepository = universityAllocationRepository;
     }
 
-      //  call to the repository to fetch UniversityAllocation by ID
+    // call to the repository to fetch UniversityAllocation by ID
     public UniversityAllocation findUniversityAllocationById(int id) {
         return universityAllocationRepository.findById(id);
     }
 
-    
     public List<UniversityAllocation> getAllAllocations() {
         return universityAllocationRepository.getAllStudentAllocations();
-      }
+    }
 
-       public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
+    public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
         // Call the repository method to update the allocation amount for the university
         return universityAllocationRepository.allocateFundsToUniversity(id, amount);
     }
-
-    
 }
