@@ -11,4 +11,5 @@ public interface StudentApplicationRepository {
     List<StudentApplication> getAllStudentsApplications();
 
     Integer updateStudentsApplicationStatus(int studentID, String status);
+    Integer updateStudentsApplicationColumnValue(int studentID, String columnName, String value); //don't allow edit of status column unless status in review
 }
