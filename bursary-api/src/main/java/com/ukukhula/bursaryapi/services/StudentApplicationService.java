@@ -2,7 +2,7 @@ package com.ukukhula.bursaryapi.services;
 
 import com.ukukhula.bursaryapi.entities.StudentApplication;
 import com.ukukhula.bursaryapi.repositories.StudentApplicationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,5 +16,9 @@ public class StudentApplicationService {
 
     public StudentApplication findByStudentID(int studentID) {
         return studentApplicationRepository.findByStudentID(studentID);
+    }
+
+    public List<StudentApplication> getAllStudentsApplications() {
+        return studentApplicationRepository.getAllStudentsApplications();
     }
 }
