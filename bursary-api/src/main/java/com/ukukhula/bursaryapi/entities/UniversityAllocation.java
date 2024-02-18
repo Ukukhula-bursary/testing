@@ -7,14 +7,15 @@ import java.math.BigDecimal;
 public class UniversityAllocation {
     private int id;
     private int universityId;
-    private int bursaryDetailsId;
     private BigDecimal amount;
+    private int bursaryDetailsId;
 
     public UniversityAllocation(int id, int universityId, BigDecimal amount, int bursaryDetailsId) {
         this.id = id;
         this.universityId = universityId;
-        this.amount = amount;
         this.bursaryDetailsId = bursaryDetailsId;
+        this.amount = amount;
+
     }
 
 }
