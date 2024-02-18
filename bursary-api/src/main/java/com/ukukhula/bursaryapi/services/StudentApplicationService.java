@@ -26,4 +26,8 @@ public class StudentApplicationService {
     public Integer updateStudentsApplicationStatus(int studentID, String status) {
         return studentApplicationRepository.updateStudentsApplicationStatus(studentID, status);
     }
+
+    public Integer updateStudentsApplicationColumnValue(int studentID, String columnName, String value) {
+        return studentApplicationRepository.updateStudentsApplicationColumnValue(studentID, columnName, value);
+    }
 }
