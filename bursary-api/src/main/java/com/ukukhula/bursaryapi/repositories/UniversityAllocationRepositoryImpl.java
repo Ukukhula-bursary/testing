@@ -4,6 +4,8 @@ package com.ukukhula.bursaryapi.repositories;
 import com.ukukhula.bursaryapi.entities.University;
 import com.ukukhula.bursaryapi.entities.UniversityAllocation;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,16 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
         return jdbcTemplate.query("SELECT * FROM UniversityAllocation", UniversityAllocationRowMapper);
     }
 
+    @Override
+    public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
+        String UPDATE_UNIVERSITY_ALLOCATION = "UPDATE UniversityAllocation SET Amount = ? WHERE ID = ?";
+        return jdbcTemplate.update(UPDATE_UNIVERSITY_ALLOCATION, amount, id);
+    }
+
     private final RowMapper<UniversityAllocation> UniversityAllocationRowMapper = ((resultSet,
             rowNumber) -> {
         return new UniversityAllocation(resultSet.getInt("ID"), resultSet.getInt("UniversityID"),
                 resultSet.getBigDecimal("Amount"), resultSet.getInt("BursaryDetailsID"));
     });
-
-    // ADD SERVICES - class or interface and implementation??
 
 }
