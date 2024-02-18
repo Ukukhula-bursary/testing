@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface StudentApplicationRepository {
     StudentApplication findByStudentID(int studentID);
+
+    List<StudentApplication> getAllStudentsApplications();
 }
