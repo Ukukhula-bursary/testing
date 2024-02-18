@@ -1,5 +1,10 @@
 package com.ukukhula.bursaryapi.controllers;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +29,17 @@ public class StudentApplicationController {
     @GetMapping("/{studentId}")
     public EntityModel<StudentApplication> getStudentApplications(@PathVariable int studentId) {
         StudentApplication application = studentApplicationService.findByStudentID(studentId);
-
-        // System.out.println(application);
         return assembler.toModel(application);
+    }
+
+    @GetMapping("/students")
+    public CollectionModel<EntityModel<StudentApplication>> getAllStudentApplications() {
+        List<EntityModel<StudentApplication>> applications = studentApplicationService.getAllStudentsApplications()
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(applications);
     }
 
 }
