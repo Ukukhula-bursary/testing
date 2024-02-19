@@ -34,4 +34,9 @@ public class UniversityAllocationService {
     public Integer allocateFundsToAllUniversities() {
         return universityAllocationRepository.allocateFundsToAllUniversities();
     }
+
+    public Integer addNewAllocation(int universityId, BigDecimal amount, int bursaryDetails) {
+      
+        return universityAllocationRepository.addNewAllocation(universityId, amount, bursaryDetails);
+    }
 }
