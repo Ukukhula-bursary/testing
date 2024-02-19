@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +62,20 @@ public class UniversityAllocationController {
             return ResponseEntity.ok("Funds allocated evenly to approved universities.");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to allocate funds.");
+        }
+    }
+
+    @PostMapping("/addnew")
+    public String addNewAllocation(@RequestBody Map<String, Object> allocationDetails) {
+        int universityId = Integer.parseInt(allocationDetails.get("universityId").toString());
+        BigDecimal amount = new BigDecimal(allocationDetails.get("amount").toString());
+        int bursaryDetailsId = Integer.parseInt(allocationDetails.get("bursaryDetailsId").toString());
+
+        try {
+            Integer result = universityAllocationService.addNewAllocation(universityId, amount, bursaryDetailsId);
+            return "Allocation added successfully. Rows affected: " + result;
+        } catch (IllegalStateException e) {
+            throw e;
         }
     }
 
