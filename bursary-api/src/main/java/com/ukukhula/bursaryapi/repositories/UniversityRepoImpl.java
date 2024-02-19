@@ -54,7 +54,7 @@ public class UniversityRepoImpl implements UniversityRepository {
     } catch (EmptyResultDataAccessException e) {
       throw new RuntimeException("University not found with ID: " + id, e);
     } catch (Exception e) {
-      throw new RuntimeException("Error retrieving University with ID: " + id, e);
+      throw new RuntimeException("Unexpected error occurred");
     }
   }
 
@@ -62,10 +62,13 @@ public class UniversityRepoImpl implements UniversityRepository {
   public List<University> getAllUniversities() {
     try {
       return jdbcTemplate.query(GET_ALL_UNIVERSITIES, universityRowMapper);
+    } catch (EmptyResultDataAccessException e) {
+      throw new RuntimeException("No university allocations to show");
     } catch (Exception e) {
-      throw new RuntimeException("Error retrieving all universities", e);
+      throw new RuntimeException("Unexpected error occurred", e);
     }
   }
+
 
   private final RowMapper<University> universityRowMapper = ((resultSet,
       rowNumber) -> new University(resultSet.getInt("ID"), resultSet.getString("Name")));
