@@ -12,5 +12,6 @@ public interface UniversityAllocationRepository {
 
     Integer allocateFundsToUniversity(int id, BigDecimal amount);
     Integer allocateFundsToAllUniversities();
+    Integer addNewAllocation(int universityId,BigDecimal  amount,int bursaryDetailsID);
   
 }
