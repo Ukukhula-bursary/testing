@@ -112,6 +112,25 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
         }
     }
 
+    @Override
+    public Integer addNewAllocation(int universityId, BigDecimal amount, int bursaryDetails) {
+        final String INSERT_NEW_ALLOCATION = "INSERT INTO UniversityAllocation (universityID,amount,BursaryDetailsID)" +
+                "VALUES(?,?,?)";
+        String SELECT_UNIVERSITY_STATUS = "SELECT Status FROM UniversityApplication  WHERE ID=?";
+        String status = jdbcTemplate.queryForObject(SELECT_UNIVERSITY_STATUS, String.class, universityId);
+
+        try {
+            if (!"approved".equalsIgnoreCase(status)) {
+                throw new IllegalStateException("University not approved for funding");
+            }
+            return jdbcTemplate.update(INSERT_NEW_ALLOCATION, universityId, amount, bursaryDetails);
+        } catch (IllegalStateException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error adding new allocation for university with");
+        }
+    }
+
     private final RowMapper<UniversityAllocation> UniversityAllocationRowMapper = ((resultSet,
             rowNumber) -> {
         return new UniversityAllocation(resultSet.getInt("ID"), resultSet.getInt("UniversityID"),
