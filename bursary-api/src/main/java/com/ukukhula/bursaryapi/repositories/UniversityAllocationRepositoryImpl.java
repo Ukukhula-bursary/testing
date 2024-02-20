@@ -32,7 +32,7 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
     }
 
     @Override
-    public List<UniversityAllocation> getAllStudentAllocations() {
+    public List<UniversityAllocation> getAllUniversityAllocations() {
         try {
             return jdbcTemplate.query("SELECT * FROM UniversityAllocation", UniversityAllocationRowMapper);
         } catch (DataAccessException e) {
@@ -127,7 +127,7 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
         } catch (IllegalStateException e) {
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Error adding new allocation for university with");
+            throw new RuntimeException("Error adding new allocation for university");
         }
     }
 

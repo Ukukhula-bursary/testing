@@ -23,8 +23,8 @@ public class UniversityAllocationService {
         return universityAllocationRepository.findById(id);
     }
 
-    public List<UniversityAllocation> getAllAllocations() {
-        return universityAllocationRepository.getAllStudentAllocations();
+    public List<UniversityAllocation> getAllUniversityAllocations() {
+        return universityAllocationRepository.getAllUniversityAllocations();
     }
 
     public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
@@ -39,4 +39,6 @@ public class UniversityAllocationService {
       
         return universityAllocationRepository.addNewAllocation(universityId, amount, bursaryDetails);
     }
+
+   
 }

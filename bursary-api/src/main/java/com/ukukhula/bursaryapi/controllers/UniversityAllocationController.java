@@ -5,6 +5,7 @@ import com.ukukhula.bursaryapi.entities.UniversityAllocation;
 import com.ukukhula.bursaryapi.services.UniversityAllocationService;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +42,9 @@ public class UniversityAllocationController {
         return universityAssembler.toModel(universityAllocation);
     }
 
-    @PutMapping("/allocate/{id}")
-    public ResponseEntity<String> allocateFundsToUniversity(@PathVariable int id,
-            @RequestBody Map<String, BigDecimal> amount) {
-        BigDecimal allocatedAmount = amount.get("amount");
-        System.out.print(allocatedAmount);
-        Integer updatedRows = universityAllocationService.allocateFundsToUniversity(id, allocatedAmount);
-        if (updatedRows > 0) {
-            return ResponseEntity.ok("Funds allocated successfully to the university.");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to allocate funds.");
-        }
+    @GetMapping("/all")
+    public List<UniversityAllocation> getAllUniversityAllocations() {
+        return universityAllocationService.getAllUniversityAllocations();
     }
 
     @PutMapping("/allocate-to-all")
