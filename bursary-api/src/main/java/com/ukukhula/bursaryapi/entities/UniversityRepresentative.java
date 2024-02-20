@@ -1,4 +1,7 @@
 package com.ukukhula.bursaryapi.entities;
 
-public class LoginRequest {
+import lombok.Data;
+
+@Data
+public class UniversityRepresentative {
 }

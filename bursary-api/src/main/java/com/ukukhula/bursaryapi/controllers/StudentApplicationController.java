@@ -28,5 +28,4 @@ public class StudentApplicationController {
         // System.out.println(application);
         return assembler.toModel(application);
     }
-
 }
