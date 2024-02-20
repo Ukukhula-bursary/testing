@@ -17,9 +17,11 @@ import org.springframework.jdbc.support.KeyHolder;
 @Repository
 public class UniversityRepoImpl implements UniversityRepository {
 
-  private static final String INSERT_UNIVERSITY = "INSERT INTO University (Name) VALUES (?)";
-  private static final String GET_UNIVERSITY_BY_ID = "EXEC [dbo].[uspGetUniversityById] ?";
-  private static final String GET_ALL_UNIVERSITIES = "SELECT * FROM University";
+  private static final String INSERT_UNIVERSITY = "{CALL " +
+          "uspAddUniversityByName(?)}";
+  private static final String GET_UNIVERSITY_BY_ID = "{CALL " +
+          "uspGetUniversityById(?)}";
+  private static final String GET_ALL_UNIVERSITIES = "SELECT ID, UniversityName FROM vUniversities";
 
   final JdbcTemplate jdbcTemplate;
 
@@ -71,5 +73,6 @@ public class UniversityRepoImpl implements UniversityRepository {
 
 
   private final RowMapper<University> universityRowMapper = ((resultSet,
-      rowNumber) -> new University(resultSet.getInt("ID"), resultSet.getString("Name")));
+      rowNumber) -> new University(resultSet.getInt("ID"),
+          resultSet.getString("UniversityName")));
 }
