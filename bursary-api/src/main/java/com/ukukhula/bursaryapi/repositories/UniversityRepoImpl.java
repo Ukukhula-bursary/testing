@@ -8,7 +8,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Repository;
 
 import com.ukukhula.bursaryapi.entities.University;
-
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -23,8 +23,7 @@ public class UniversityRepoImpl implements UniversityRepository {
           "uspGetUniversityById(?)}";
   private static final String GET_ALL_UNIVERSITIES = "SELECT ID, UniversityName FROM vUniversities";
 
-  final
-  JdbcTemplate jdbcTemplate;
+  final JdbcTemplate jdbcTemplate;
 
   public UniversityRepoImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
@@ -52,14 +51,26 @@ public class UniversityRepoImpl implements UniversityRepository {
 
   @Override
   public University getUniversityById(int id) {
-    return jdbcTemplate.queryForObject(GET_UNIVERSITY_BY_ID, universityRowMapper,
-        id);
+    try {
+      return jdbcTemplate.queryForObject(GET_UNIVERSITY_BY_ID, universityRowMapper, id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new RuntimeException("University not found with ID: " + id, e);
+    } catch (Exception e) {
+      throw new RuntimeException("Unexpected error occurred");
+    }
   }
 
   @Override
   public List<University> getAllUniversities() {
-    return jdbcTemplate.query(GET_ALL_UNIVERSITIES, universityRowMapper);
+    try {
+      return jdbcTemplate.query(GET_ALL_UNIVERSITIES, universityRowMapper);
+    } catch (EmptyResultDataAccessException e) {
+      throw new RuntimeException("No university allocations to show");
+    } catch (Exception e) {
+      throw new RuntimeException("Unexpected error occurred", e);
+    }
   }
+
 
   private final RowMapper<University> universityRowMapper = ((resultSet,
       rowNumber) -> new University(resultSet.getInt("ID"),

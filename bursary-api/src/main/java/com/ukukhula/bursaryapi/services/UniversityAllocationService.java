@@ -23,8 +23,8 @@ public class UniversityAllocationService {
         return universityAllocationRepository.findById(id);
     }
 
-    public List<UniversityAllocation> getAllAllocations() {
-        return universityAllocationRepository.getAllStudentAllocations();
+    public List<UniversityAllocation> getAllUniversityAllocations() {
+        return universityAllocationRepository.getAllUniversityAllocations();
     }
 
     public Integer allocateFundsToUniversity(int id, BigDecimal amount) {
@@ -34,4 +34,14 @@ public class UniversityAllocationService {
     public Integer allocateFundsToAllUniversities() {
         return universityAllocationRepository.allocateFundsToAllUniversities();
     }
+
+    public Integer addNewAllocation(int universityId, BigDecimal amount, int bursaryDetails) {
+      
+        return universityAllocationRepository.addNewAllocation(universityId, amount, bursaryDetails);
+    }
+
+    public BigDecimal getTotalSpentInYear(int year){
+        return universityAllocationRepository.getTotalSpentInYear(year);
+    }
+   
 }
