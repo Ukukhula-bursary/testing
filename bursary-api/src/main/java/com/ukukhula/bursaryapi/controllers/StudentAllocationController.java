@@ -2,6 +2,7 @@ package com.ukukhula.bursaryapi.controllers;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -51,9 +52,10 @@ public class StudentAllocationController {
     }
 
     @GetMapping("/student/allocation/total-spent")
-    public ResponseEntity<BigDecimal> getTotalSpentByUniversity(
-            @RequestParam("year") int year,
-            @RequestParam("universityId") int universityId) {
+    public ResponseEntity<BigDecimal> getTotalSpentByUniversity(@RequestBody Map<String, Integer> requestBody) {
+        int year = requestBody.get("year");
+        int universityId = requestBody.get("universityId");
+
         BigDecimal totalSpent = studentAllocationService.getStudentAllocationsTotalSpent(year, universityId);
         return ResponseEntity.ok(totalSpent);
     }
