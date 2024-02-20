@@ -1,7 +1,6 @@
 package com.ukukhula.bursaryapi.repositories;
 
-import com.ukukhula.bursaryapi.ApplicationStatus;
-import com.ukukhula.bursaryapi.entities.StudentApplication;
+ import com.ukukhula.bursaryapi.entities.StudentApplication;
 
 import java.util.List;
 

@@ -1,11 +1,7 @@
 package com.ukukhula.bursaryapi.repositories;
 
-import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
-import com.ukukhula.bursaryapi.repositories.utilities.ColumnValueConverter;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
