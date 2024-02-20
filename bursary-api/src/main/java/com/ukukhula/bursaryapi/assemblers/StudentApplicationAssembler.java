@@ -8,7 +8,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.controllers.StudentApplicationController;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
 
