@@ -16,7 +16,7 @@ public interface StudentAllocationRepository {
 
     StudentAllocation updateStudentAllocation(int id, StudentAllocation updatedAllocation);
 
-    void deleteStudentAllocation(int id);
+    StudentAllocation deleteStudentAllocation(int id);
 
     BigDecimal getStudentAllocationsTotalSpent(int year);
 
