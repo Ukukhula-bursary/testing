@@ -5,7 +5,7 @@ CREATE TABLE [dbo].[StudentApplication]
   [Motivation] TEXT NOT NULL,
   [RejectionReason] TEXT NOT NULL DEFAULT 'N/A',
   [BursaryAmount] MONEY NOT NULL,
-  [Status] INT NOT NULL DEFAULT "Review",
+  [Status] VARCHAR(10) NOT NULL DEFAULT 'Review',
   [Date] DATE NOT NULL DEFAULT GETDATE()
 )
 GO
