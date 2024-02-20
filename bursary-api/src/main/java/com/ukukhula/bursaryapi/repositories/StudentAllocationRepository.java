@@ -2,7 +2,6 @@ package com.ukukhula.bursaryapi.repositories;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import com.ukukhula.bursaryapi.entities.StudentAllocation;
 
@@ -18,6 +17,6 @@ public interface StudentAllocationRepository {
 
     StudentAllocation deleteStudentAllocation(int id);
 
-    BigDecimal getStudentAllocationsTotalSpent(int year);
+    BigDecimal getStudentAllocationsTotalSpent(int year, int universityId);
 
 }
