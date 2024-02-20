@@ -137,4 +137,13 @@ public class UniversityAllocationRepositoryImpl implements UniversityAllocationR
                 resultSet.getBigDecimal("Amount"), resultSet.getInt("BursaryDetailsID"));
     });
 
+@Override
+public BigDecimal getTotalSpentInYear(int year) {
+    final String TOTAL_SPENT_PROCEDURE = "{CALL CalculateTotalAllocationForYear(?)}";
+    try {
+        return jdbcTemplate.queryForObject(TOTAL_SPENT_PROCEDURE, BigDecimal.class, year);
+    } catch (DataAccessException e) {
+        throw new RuntimeException("Error retrieving total spent for year: " + year, e);
+    }
+}
 }

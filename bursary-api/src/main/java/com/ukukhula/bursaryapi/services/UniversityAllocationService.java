@@ -40,5 +40,8 @@ public class UniversityAllocationService {
         return universityAllocationRepository.addNewAllocation(universityId, amount, bursaryDetails);
     }
 
+    public BigDecimal getTotalSpentInYear(int year){
+        return universityAllocationRepository.getTotalSpentInYear(year);
+    }
    
 }

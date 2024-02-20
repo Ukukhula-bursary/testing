@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.hateoas.EntityModel;
@@ -72,4 +73,17 @@ public class UniversityAllocationController {
         }
     }
 
+    @GetMapping("/totalspent/{year}")
+    public ResponseEntity<Object> getTotalSpentInYear(@PathVariable int year) {
+        try {
+            BigDecimal totalSpent = universityAllocationService.getTotalSpentInYear(year);
+            if (totalSpent == null) {
+                throw new RuntimeException("No allocations for that year");
+            }
+            return ResponseEntity.ok(totalSpent);
+        } catch (RuntimeException e) {
+            throw e;
+        }
+
+    }
 }
