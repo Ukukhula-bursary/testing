@@ -64,6 +64,7 @@ public class StudentApplicationController {
 
     @ExceptionHandler({ StudentApplicationException.class,
             ApplicationInvalidStatusException.class })
+            
     @PutMapping("/status/{studentID}")
     public ResponseEntity<?> updateStudentsApplicationStatus(@PathVariable int studentID,
             @RequestBody Map<String, String> requestBody) {
