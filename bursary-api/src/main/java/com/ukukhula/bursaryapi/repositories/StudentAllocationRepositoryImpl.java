@@ -89,11 +89,11 @@ public class StudentAllocationRepositoryImpl implements StudentAllocationReposit
 
     @Override
     public StudentAllocation deleteStudentAllocation(int id) {
-        String SELECT_DELETED_ALLOCATION = "SELECT * FROM StudentAllocation WHERE id = ?";
+        String SELECT_DELETED_ALLOCATION = "SELECT * FROM StudentAllocation WHERE ID = ?";
         StudentAllocation deletedAllocation = jdbcTemplate.queryForObject(SELECT_DELETED_ALLOCATION,
                 studentAllocationRowMapper, id);
 
-        String DELETE_STUDENT_ALLOCATION = "DELETE FROM StudentAllocation WHERE id = ?";
+        String DELETE_STUDENT_ALLOCATION = "DELETE FROM StudentAllocation WHERE ID = ?";
 
         int rowsAffected = jdbcTemplate.update(DELETE_STUDENT_ALLOCATION, id);
 
