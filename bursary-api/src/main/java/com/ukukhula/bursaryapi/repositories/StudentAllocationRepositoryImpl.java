@@ -106,14 +106,26 @@ public class StudentAllocationRepositoryImpl implements StudentAllocationReposit
 
     }
 
-    // To Be Continued
-    
-    // @Override
-    // public BigDecimal getStudentAllocationsTotalSpent(int year) {
-    //     String SELECT_ALL_STUDENT_ALLOCATION = "SELECT * FROM StudentAllocation";
+    @Override
+    public BigDecimal getStudentAllocationsTotalSpent(int year, int universityId) {
+        String CALL_UDFGETTOTALSPENTBYUNIVERSITYBYEAR = "SELECT dbo.udfGetTotalSpentByUniversityByYear(?, ?)";
 
-    //     List<StudentAllocation> students = jdbcTemplate.query(SELECT_ALL_STUDENT_ALLOCATION,
-    //             studentAllocationRowMapper);
-    //     return new BigDecimal("100.50");
-    // }
+        try {
+
+            BigDecimal universityTotalYearSpend = jdbcTemplate.queryForObject(
+                    CALL_UDFGETTOTALSPENTBYUNIVERSITYBYEAR,
+                    BigDecimal.class,
+                    year, universityId);
+
+            if (universityTotalYearSpend == null) {
+
+                return BigDecimal.ZERO;
+            } else {
+                return universityTotalYearSpend;
+            }
+        } catch (EmptyResultDataAccessException e) {
+
+            return BigDecimal.ZERO;
+        }
+    }
 }
