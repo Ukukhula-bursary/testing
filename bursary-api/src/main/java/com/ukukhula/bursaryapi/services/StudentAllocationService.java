@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ukukhula.bursaryapi.entities.StudentAllocation;
 import com.ukukhula.bursaryapi.repositories.StudentAllocationRepository;
+import java.math.BigDecimal;
+
 
 @Service
 public class StudentAllocationService {
@@ -37,7 +39,7 @@ public class StudentAllocationService {
         studentAllocationRepository.deleteStudentAllocation(id);
     }
 
-    // public BigDecimal getStudentAllocationsTotalSpent(int year, int universityId) {
-    //     return studentAllocationRepository.getStudentAllocationsTotalSpent(year, universityId);
-    // }
+    public BigDecimal getStudentAllocationsTotalSpent(int year, int universityId) {
+        return studentAllocationRepository.getStudentAllocationsTotalSpent(year, universityId);
+    }
 }
