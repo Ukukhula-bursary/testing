@@ -5,5 +5,5 @@ import com.ukukhula.bursaryapi.entities.UserRole;
 import java.util.Optional;
 
 public interface UserRoleRepository {
-    Optional<UserRole> getByRole(String role);
+    String getByRoleId(int roleId);
 }

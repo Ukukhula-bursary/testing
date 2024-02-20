@@ -17,9 +17,13 @@ public class UserRoleRepositoryImpl implements UserRoleRepository{
     }
 
     @Override
-    public Optional<UserRole> getByRole(String role) {
-        String GET_ROLE = "SELECT Role FROM UserRole WHERE Role = ?";
-        return Optional.ofNullable(jdbcTemplate.queryForObject(GET_ROLE, userRoleRowMapper, role));
+    public String getByRoleId(int roleId) {
+        String GET_ROLE = "SELECT Role FROM UserRole WHERE ID = ?";
+        UserRole userRole = (jdbcTemplate.queryForObject(GET_ROLE,
+                userRoleRowMapper,
+                roleId));
+
+        return userRole.getRole();
     }
 
     private final RowMapper<UserRole> userRoleRowMapper = ((resultSet,
