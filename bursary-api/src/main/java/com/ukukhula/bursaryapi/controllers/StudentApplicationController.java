@@ -4,24 +4,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ukukhula.bursaryapi.ApplicationStatus;
 import com.ukukhula.bursaryapi.assemblers.StudentApplicationAssembler;
 import com.ukukhula.bursaryapi.entities.StudentApplication;
+import com.ukukhula.bursaryapi.exceptions.StudentApplicationException;
+import com.ukukhula.bursaryapi.exceptions.ApplicationInvalidStatusException;
 import com.ukukhula.bursaryapi.services.StudentApplicationService;
 
 @RestController
+@RestControllerAdvice
+
 public class StudentApplicationController {
+
     private final StudentApplicationService studentApplicationService;
     private final StudentApplicationAssembler assembler;
 
@@ -32,9 +36,20 @@ public class StudentApplicationController {
     }
 
     @GetMapping("/student/{studentId}")
-    public EntityModel<StudentApplication> getStudentApplications(@PathVariable int studentId) {
+    public ResponseEntity<?> getStudentApplications(@PathVariable int studentId) {
+
+        if (studentId <= 0) {
+            return ResponseEntity.badRequest().body("Student ID is not provided");
+        }
         StudentApplication application = studentApplicationService.findByStudentID(studentId);
-        return assembler.toModel(application);
+
+        if (application == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        EntityModel<StudentApplication> entityModel = assembler.toModel(application);
+
+        return ResponseEntity.ok(entityModel);
     }
 
     @GetMapping("/students")
@@ -47,13 +62,27 @@ public class StudentApplicationController {
         return CollectionModel.of(applications);
     }
 
+    @ExceptionHandler({ StudentApplicationException.class,
+            ApplicationInvalidStatusException.class })
     @PutMapping("/status/{studentID}")
     public ResponseEntity<?> updateStudentsApplicationStatus(@PathVariable int studentID,
             @RequestBody Map<String, String> requestBody) {
+
+        if (studentID <= 0) {
+            return ResponseEntity.badRequest().body("Student ID is not provided");
+        }
+
+        if (requestBody.isEmpty()) {
+            return ResponseEntity.badRequest().body("Request body is empty");
+        }
+
         String statusString = requestBody.get("status");
 
-        try {
+        if (statusString == null || statusString.isEmpty()) {
+            return ResponseEntity.badRequest().body("Status value is missing in the request body");
+        }
 
+        try {
             Integer rowsAffected = studentApplicationService.updateStudentsApplicationStatus(studentID, statusString);
 
             if (rowsAffected >= 1) {
@@ -61,15 +90,18 @@ public class StudentApplicationController {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Invalid status value");
+        } catch (Exception error) {
+            throw new Error(error.getMessage());
         }
-
     }
 
     @PutMapping("/student/updateColumn/{studentID}")
     public ResponseEntity<?> updateStudentsApplicationColumnValue(@PathVariable int studentID,
             @RequestBody Map<String, String> requestBody) {
+
+        if (requestBody.isEmpty()) {
+            return ResponseEntity.badRequest().body("Request body is empty");
+        }
 
         String columNameString = new String();
 
@@ -94,7 +126,7 @@ public class StudentApplicationController {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Invalid update");
+            return ResponseEntity.badRequest().body("Unsuccessful update");
         }
 
     }
