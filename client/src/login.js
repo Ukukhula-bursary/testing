@@ -5,5 +5,14 @@ const loginSubmitButton = document.getElementById("login-submit");
 loginSubmitButton.addEventListener("click", (e) => {
   e.preventDefault();
 
-  console.log("form submitted");
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+    }).then((res) => res.json()),
+  });
 });
