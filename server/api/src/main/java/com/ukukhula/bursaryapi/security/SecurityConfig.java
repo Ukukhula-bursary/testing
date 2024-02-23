@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -22,18 +23,26 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http)
             throws Exception {
 
-        http.addFilterBefore(jwtAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class);
+        // http.addFilterBefore(jwtAuthenticationFilter,
+        //         UsernamePasswordAuthenticationFilter.class);
 
-        http
-                .cors(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(AbstractHttpConfigurer::disable)
-                .securityMatcher("/**")
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll());
+        // http
+        //         .cors(Customizer.withDefaults())
+        //         .csrf(AbstractHttpConfigurer::disable)
+        //         .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        //         .formLogin(AbstractHttpConfigurer::disable)
+        //         .securityMatcher("/**")
+        //         .authorizeHttpRequests(auth -> auth
+        //                 .anyRequest().permitAll());
 
-        return http.build();
+        return http
+        .authorizeHttpRequests(outh -> {
+            outh.requestMatchers("/").permitAll();
+            outh.anyRequest().authenticated();
+
+        })
+        .oauth2Login(withDefaults())
+        .formLogin(withDefaults())
+        .build();
     }
 }
