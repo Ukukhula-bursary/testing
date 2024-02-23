@@ -1,6 +1,21 @@
 const getStudentAllocationButton = document.getElementById(
   "get-student-allocation"
 );
+const getStudentAllocationById = document.getElementById(
+  "get-student-allocation-by-id"
+);
+const postStudentAllocation = document.getElementById(
+  "post-student-allocation"
+);
+const getStudentAllocationButton = document.getElementById(
+  "get-student-allocation"
+);
+const getStudentAllocationButton = document.getElementById(
+  "get-student-allocation"
+);
+const getStudentAllocationButton = document.getElementById(
+  "get-student-allocation"
+);
 
 getStudentAllocationButton.addEventListener("click", (e) => {
   e.preventDefault();
