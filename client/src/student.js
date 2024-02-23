@@ -1,20 +1,20 @@
 const getStudentAllocationButton = document.getElementById(
   "get-student-allocation"
 );
-const getStudentAllocationById = document.getElementById(
+const getStudentAllocationByIdButton = document.getElementById(
   "get-student-allocation-by-id"
 );
-const postStudentAllocation = document.getElementById(
+const postStudentAllocationButton = document.getElementById(
   "post-student-allocation"
 );
-const getStudentAllocationButton = document.getElementById(
-  "get-student-allocation"
+const updateStudentAllocationByIdButton = document.getElementById(
+  "update-student-allocation-by-id"
 );
-const getStudentAllocationButton = document.getElementById(
-  "get-student-allocation"
+const deleteStudentAllocationByIdButton = document.getElementById(
+  "delete-student-allocation-by-id"
 );
-const getStudentAllocationButton = document.getElementById(
-  "get-student-allocation"
+const getStudentAllocationByTotalSpentButton = document.getElementById(
+  "get-student-allocation-by-total-spent"
 );
 
 getStudentAllocationButton.addEventListener("click", (e) => {
