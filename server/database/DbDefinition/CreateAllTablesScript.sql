@@ -178,7 +178,7 @@ CREATE TABLE [dbo].[UniversityApplications]
 	[StatusID] INT NOT NULL,
 	[Motivation] TEXT NOT NULL,
 	[Date] DATE NOT NULL DEFAULT GETDATE(),
-	[ReviewerID_UserID] INT NOT NULL,
+	[ReviewerID_UserID] INT NULL,
 	[ReviewerComment] TEXT NOT NULL DEFAULT 'N/A',
 
 	CONSTRAINT PK_UniversityApplicationID 
