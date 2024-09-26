@@ -37,7 +37,7 @@ public class StudentApplicationRepositoryImpl implements StudentApplicationRepos
 
     @Override
     public List<StudentApplication> getAllStudentsApplications() {
-        final String SQL = "SELECT * FROM StudentApplication";
+        final String SQL = "SELECT * FROM StudentApplications";
 
         List<StudentApplication> students = jdbcTemplate.query(SQL, studentRowMapper);
         return students;
